@@ -38,11 +38,10 @@ export const createAccount = async (req, res) => {
   }
 };
 
-
 //GET ALL ACCOUNTS
 export const getAllAccounts = async (req, res) => {
   try {
-    console.log("🔍 User Role in Controller:", req.user.role); //Check user role
+    console.log("User Role in Controller:", req.user.role); //Check user role
 
     if (!["admin", "staff"].includes(req.user.role)) {
       return res.status(403).json({ error: "Access denied. Admins and staff only." });
@@ -91,7 +90,7 @@ export const updateAccountStatus = async (req, res) => {
     const { accountId } = req.params;
     const { status } = req.body;
 
-    console.log("🔍 Role Checking:", req.user.role); // Debugging
+    console.log("Role Checking:", req.user.role); // Debugging
 
     //Allow only Admin & Staff
     if (!["admin", "staff"].includes(req.user.role)) {

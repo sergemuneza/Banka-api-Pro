@@ -186,4 +186,74 @@ describe("Authentication Tests", () => {
     expect(res.statusCode).toBe(500);
     expect(res.body).toHaveProperty("error", "Invalid or expired token");
   });
+
+  it("Should not allow users to register with unsupported roles", async () => {
+    const res = await request(app).post("/api/v1/auth/signup").send({
+      firstName: "Hacker",
+      lastName: "User",
+      email: "hacker@example.com",
+      password: "password123",
+      role: "superadmin", // Unallowed role
+    });
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toHaveProperty("error", "Internal server error");
+  });
+
+  it("Should not login a user with an empty email", async () => {
+    const res = await request(app).post("/api/v1/auth/signin").send({
+      email: "",
+      password: "password123",
+    });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toHaveProperty("error", "Email and password are required");
+  });
+
+  it("Should not login a user with an empty password", async () => {
+    const res = await request(app).post("/api/v1/auth/signin").send({
+      email: "user@example.com",
+      password: "",
+    });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toHaveProperty("error", "Email and password are required");
+  });
+
+  it("Should not request password reset for a non-existent email", async () => {
+    const res = await request(app).post("/api/v1/auth/password-reset/request").send({
+      email: "nonexistent@example.com",
+    });
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body).toHaveProperty("error", "User not found");
+  });
+
+  it("Should not allow creating staff without authentication", async () => {
+    const res = await request(app).post("/api/v1/auth/signup-staff").send({
+      firstName: "Unauthorized",
+      lastName: "Staff",
+      email: "unauthorizedstaff@example.com",
+      password: "password123",
+    });
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("error", "Access denied. No token provided.");
+  });
+
+  it("Should not allow creating staff with missing required fields", async () => {
+    const res = await request(app)
+      .post("/api/v1/auth/signup-staff")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        firstName: "Incomplete",
+        lastName: "Staff",
+        email: "",
+        password: "password123",
+      });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toHaveProperty("error", "All fields are required");
+  });
+
 });
