@@ -1,0 +1,35 @@
+{
+  "name": "banka-api",
+  "version": "1.0.0",
+  "main": "index.js",
+"scripts": {
+  "start": "node src/server.js",
+  "dev": "nodemon --exec babel-node src/server.js",
+  "test": "jest --runInBand --detectOpenHandles --coverage",
+  "test:watch": "jest --watch",
+  "test:coverage": "jest --coverage"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.26.0",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
+  }
+}
