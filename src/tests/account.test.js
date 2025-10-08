@@ -1,7 +1,6 @@
 /*
-Developers:
-- 20248/2022  SERGE MUNEZA
-- 21939/2023  NEEMA ZANINKA
+Developer:
+- SERGE MUNEZA
 */
 
 import request from "supertest";
@@ -85,19 +84,6 @@ afterAll(async () => {
 });
 
 describe("Account Management", () => {
-  // Account Creation
-  // it("Should create a new bank account", async () => {
-  //   const res = await request(app)
-  //     .post("/api/v1/accounts")
-  //     .set("Authorization", `Bearer ${userToken}`)
-  //     .send({ type: "current", initialDeposit: 100 });
-
-  //   console.log("Create Account Response:", res.body);
-
-  //   expect(res.statusCode).toBe(201);
-  //   expect(res.body).toHaveProperty("message", "Account created successfully");
-  //   expect(res.body.data).toHaveProperty("accountNumber");
-  // });
 
   it("Should not create an account without authentication", async () => {
     const res = await request(app).post("/api/v1/accounts").send({ type: "savings", initialDeposit: 200 });

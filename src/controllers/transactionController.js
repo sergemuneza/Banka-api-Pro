@@ -1,7 +1,6 @@
 /*
-Developers:
-- 20248/2022  SERGE MUNEZA
-- 21939/2023  NEEMA ZANINKA
+Developer:
+- SERGE MUNEZA
 */
 import Transaction from "../models/Transaction.js";
 import Account from "../models/account.js";

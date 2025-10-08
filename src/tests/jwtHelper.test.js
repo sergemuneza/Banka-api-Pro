@@ -1,7 +1,6 @@
 /*
-Developers:
-- 20248/2022  SERGE MUNEZA
-- 21939/2023  NEEMA ZANINKA
+Developer:
+- SERGE MUNEZA
 */
 
 import { generateAuthToken, verifyToken } from "../utils/jwtHelper.js";
